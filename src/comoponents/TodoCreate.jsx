@@ -25,7 +25,7 @@ const TodoCreate = ({ createTodo }) => {
           <input 
             className="w-full outline-none text-gray-400 dark:bg-gray-700 transition-all duration-1000" 
             type="text" 
-            placeholder="Create a new to do..."
+            placeholder="Crear nueva tarea 'to do'..."
             value={title}
             onChange={(e) => setTitle(e.target.value) } 
           />
