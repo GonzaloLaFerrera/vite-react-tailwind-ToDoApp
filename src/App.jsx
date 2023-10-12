@@ -1,3 +1,5 @@
+import { DragDropContext } from "@hello-pangea/dnd";
+
 import { useEffect, useState } from "react";
 import Header from "./comoponents/Header";
 import TodoComputed from "./comoponents/TodoComputed";
@@ -80,6 +82,20 @@ const App = () => {
 
   const changeFilter = (filter) => {setFilter(filter)};
 
+  const handleOnDragEnd = (result) => {
+    if(!result.destination) return;
+    const startIndex = result.source.index;
+    const endIndex = result.destination.index;
+
+    const copyArray = [...todos];
+    const [reorderedItems] = copyArray.splice(startIndex, 1);
+
+    copyArray.splice(endIndex, 0, reorderedItems);
+    console.log(copyArray);
+
+    setTodos(copyArray);
+  };
+
 
   return(
     <div className="min-h-screen bg-gray-300 bg-[url('./assets/images/bg-mobile-light.jpg')] bg-no-repeat bg-contain dark:bg-gray-900 dark:bg-[url('./assets/images/bg-mobile-dark.jpg')] transition-all duration-1000 md:bg-[url('./assets/images/bg-desktop-light.jpg')] md:dark:bg-[url('./assets/images/bg-desktop-dark.jpg')] ">
@@ -89,12 +105,13 @@ const App = () => {
       <main className="container mx-auto mt-8 px-4 md:max-w-xl dark:md:shadow-xl dark:md:shadow-gray-950 md:py-8 md:shadow-xl md:shadow-gray-400/50">         
         <TodoCreate createTodo={createTodo}/>
 
-        {/* TodoList (TodoItem) TodoUpdate & TodoDelete */}
-        <TodoList 
-          todos={filteredTodos()} 
-          updateTodo={updateTodo} 
-          removeTodo={removeTodo}
-        />
+        <DragDropContext onDragEnd={handleOnDragEnd}>
+          <TodoList 
+            todos={filteredTodos()} 
+            updateTodo={updateTodo} 
+            removeTodo={removeTodo}
+          />
+        </DragDropContext>
 
         <TodoComputed 
           computedItemsleft={computedItemsleft} 
@@ -104,7 +121,7 @@ const App = () => {
         <TodoFilter changeFilter={changeFilter} filter={filter}/>
       </main>
 
-      <footer className="text-center mt-8 dark:text-gray-400">Drag and drop to re-order list</footer>
+      <footer className="text-center mt-8 dark:text-gray-400">Arrastre los elementos para re-ordenarlos</footer>
     </div>
   )
 };

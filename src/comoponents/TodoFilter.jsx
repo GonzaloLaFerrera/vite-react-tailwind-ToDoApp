@@ -11,21 +11,21 @@ const TodoFilter = ({changeFilter, filter}) => {
                                 : 'text-gray-500 hover:text-blue-600 hover:font-bold'
                 }`}
               >
-                All
+                Todos
               </button>
               
               <button 
                 onClick={() => changeFilter('active')} 
                 className={`${filter === 'active' ? 'text-blue-600 hover:text-gray-500' : 'text-gray-500 hover:text-blue-600 hover:font-bold'}`}
               >
-                Active
+                Activos
               </button>
               
               <button 
                 onClick={() => changeFilter('completed')} 
                 className={`${filter === 'completed' ? 'text-blue-600 hover:text-gray-500' : 'text-gray-500 hover:text-blue-600 hover:font-bold'}`}
               >
-                Completed
+                Completados
               </button>
 
             </div>
